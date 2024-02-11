@@ -34,10 +34,11 @@ public class main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String dateStr = "-1";
-        long phoneNumber = -1;
+        String phoneNumber = "-1";
         String gender = "-1";
         int dateOk = -1;
-        int iOk = -1;
+        int phoneOk = -1;
+        int i = 0;
 
 
         String f = "f";
@@ -49,7 +50,7 @@ public class main {
         // Ivanov Ivan Ivanovich 01.01.1991 87777777777
         // String str = sc.nextLine();
         
-        String data = "Иванов Иван Иванович 23.10.1991 f +7999999999";
+        String data = "Иванов Иван Иванович 23.10.1991 f +79112293344";
         System.out.println(data);
 
 
@@ -80,16 +81,21 @@ public class main {
                 System.out.println("Не только буквы");
  
                 // проверка на номер телефона
-                if (iOk == -1){
-                    try{
-                    long i = Long.parseLong(splitDataOne);
-                    System.out.println("long i = " + i);
-                    phoneNumber = i;
-                    }
-                    
-                    catch (NumberFormatException nfe)
-                    {
-                    //System.out.println("NumberFormatException: " + nfe.getMessage());
+                if (phoneOk == -1){
+                    if (Pattern.matches("[0-9+]+",splitDataOne)) {
+                        if (splitDataOne.charAt(0) == '+'){
+                            //System.out.println("Есть +");
+                            i--;
+                        }
+                        // проверка на количество символов в номере
+                        if(splitDataOne.length() + i == 11){
+                            //System.out.println("Ок");
+                            phoneNumber = splitDataOne;
+                            phoneOk = 0;
+                        }
+                        else{
+                            System.out.println("Неверный формат номера");
+                        }
                     }
                 }
 
