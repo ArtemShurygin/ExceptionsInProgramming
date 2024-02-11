@@ -24,6 +24,7 @@
  */
 
 
+import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,8 +135,18 @@ public class main {
         System.out.println("phoneNumber = " + phoneNumber);
         System.out.println("Gender = " + gender);
 
+        System.out.println();
         if(fioOk + dateOk + phoneOk + genderOk == 0){
             System.out.println("allOk");
+            //проверка наличия файла относительно открытого проекта
+            String thisDirectory = System.getProperty("user.dir");
+            File file = new File(thisDirectory + "\\Data\\testFile.txt");
+            if(file.exists()){
+                System.out.println("Существует файл");
+            }
+            else {
+                System.out.println("Файл не найден");
+            }
         }
     }
 }
