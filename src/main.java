@@ -36,12 +36,15 @@ public class main {
         String dateStr = "-1";
         String phoneNumber = "-1";
         String gender = "-1";
+
+        int genderOk = -1;
         int dateOk = -1;
         int phoneOk = -1;
+        int fioOk = -3;
+
         int i = 0;
 
 
-        String f = "f";
         ArrayList<String> FIO = new ArrayList<String>();
 
 
@@ -71,10 +74,12 @@ public class main {
                 // определили гендер
                 if (splitDataOne.equalsIgnoreCase("m") | splitDataOne.equalsIgnoreCase("f")){
                 gender = splitDataOne;
+                genderOk = 0;
                 }
 
                 else {
                     FIO.add(splitDataOne);
+                    fioOk++;
                 }
             }
             else{
@@ -106,7 +111,7 @@ public class main {
                         java.util.Date date = dateFormat.parse(splitDataOne);
                         System.out.println("date = " + date);
                         dateStr = splitDataOne;
-                        dateOk = 1;
+                        dateOk = 0;
                     }
                     catch (Exception e) {
 
@@ -115,11 +120,22 @@ public class main {
             }
         }
 
+        // Вывод кодов ошибки
+        System.out.println();
+        System.out.println("fioOk = " + fioOk);
+        System.out.println("dateOk = " + dateOk);
+        System.out.println("phoneOk = " + phoneOk);
+        System.out.println("genderOk = " + genderOk);
+
         // Вывод данных
         System.out.println();
         System.out.println("FIO = " + FIO);
-        System.out.println("phoneNumber = " + phoneNumber);
         System.out.println("date = " + dateStr);
+        System.out.println("phoneNumber = " + phoneNumber);
         System.out.println("Gender = " + gender);
+
+        if(fioOk + dateOk + phoneOk + genderOk == 0){
+            System.out.println("allOk");
+        }
     }
 }
