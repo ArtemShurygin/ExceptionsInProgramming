@@ -24,7 +24,11 @@
  */
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.StringWriter;
+import java.nio.file.StandardOpenOption;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -115,7 +119,7 @@ public class main {
                         dateOk = 0;
                     }
                     catch (Exception e) {
-
+                        System.out.println(e.getMessage());
                     }
                 }
             }
@@ -138,15 +142,33 @@ public class main {
         System.out.println();
         if(fioOk + dateOk + phoneOk + genderOk == 0){
             System.out.println("allOk");
+            String info = FIO.get(0) + " " + FIO.get(1) + " " +FIO.get(2) +
+            " " + dateStr + " " + phoneNumber + " " + gender;
+            System.out.println(info);
+
             //проверка наличия файла относительно открытого проекта
             String thisDirectory = System.getProperty("user.dir");
-            File file = new File(thisDirectory + "\\Data\\testFile.txt");
-            if(file.exists()){
-                System.out.println("Существует файл");
+            //File file = new File(thisDirectory + "\\Data\\testFile.txt");
+
+            try{
+
+            File file = new File(thisDirectory + "\\Data\\" + FIO.get(0) + ".txt");
+
+            // Создаёт файл, если он отсутствует
+            if (!file.exists()) {
+                file.createNewFile();
             }
-            else {
-                System.out.println("Файл не найден");
-            }
+
+            FileWriter fw = new FileWriter(file,true); 
+            BufferedWriter bw = new BufferedWriter(fw);
+            fw.write(info);
+            bw.newLine();
+            bw.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    
         }
     }
 }
