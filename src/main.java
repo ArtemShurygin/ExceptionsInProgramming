@@ -27,12 +27,13 @@
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String dateStr = "-1";
-        String iStr = "-1";
+        long phoneNumber = -1;
         String gender = "-1";
         int dateOk = -1;
         int iOk = -1;
@@ -47,22 +48,43 @@ public class main {
         // String str = sc.nextLine();
         String data = "Иванов Иван Иванович 01.05.1991 f 99999999999";
         System.out.println(data);
+        // разделили строку на массив строк, где разднлителем является пробел
         String [] splitData = data.split(" ");
 
+
+
+        /* 
         if (dateOk == -1 | iOk == -1){
             
         }
+        */
+
+
+            // проверка на наличе только букв
+            String s = "cwvrgwcАМмуиуёЁ";
+            if (Pattern.matches("[ЁёА-яa-zA-Z]+",s)) { 
+            // Do something
+            System.out.println("Yes, string contains letters only");
+            }else{
+            System.out.println("Nope, Other characters detected");    
+            }
 
 
         for (String splitDataOne : splitData){
             System.out.println(splitDataOne);
 
+            // определили гендер
             if (splitDataOne.equalsIgnoreCase("m") | splitDataOne.equalsIgnoreCase("f")){
                 gender = splitDataOne;
-                System.out.print("ОК ");
             }
 
 
+
+
+
+
+
+            // проверка на число
             char[] chars = splitDataOne.toCharArray();
             for (char charDataOne : chars) {
                 if (Character.isDigit(charDataOne)){
@@ -75,13 +97,10 @@ public class main {
 
             if (dateOk == -1 | iOk == -1){
                 try{
-                // именно здесь String преобразуется в int
+                // проверка на номер телефона
                 long i = Long.parseLong(splitDataOne);
-
-
-                // выведем на экран значение после конвертации
                 System.out.println("long i = " + i);
-                iStr = splitDataOne;
+                phoneNumber = i;
                 }
                 
                 catch (NumberFormatException nfe)
@@ -99,29 +118,12 @@ public class main {
 
                 }
             }
-
-
-
-
-
-
-            /* 
-            if (splitDataOne instanceof String) {
-                System.out.print("Строка ");
-            } 
-            */ 
-            /* 
-            if (splitDataOne instanceof Integer) {
-                System.out.println("123 ");
-            }
-            */
-
             
 
             
         }
         System.out.println();
-        System.out.println("long i = " + iStr);
+        System.out.println("phoneNumber = " + phoneNumber);
         System.out.println("date = " + dateStr);
         System.out.println("Gender = " + gender);
 
