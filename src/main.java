@@ -26,6 +26,7 @@
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -40,93 +41,79 @@ public class main {
 
 
         String f = "f";
+        ArrayList<String> FIO = new ArrayList<String>();
 
 
         // System.out.print("Введите данные: ");
         // Иванов Иван Иванович 01.01.1991 87777777777
         // Ivanov Ivan Ivanovich 01.01.1991 87777777777
         // String str = sc.nextLine();
-        String data = "Иванов Иван Иванович 01.05.1991 f 99999999999";
+        
+        String data = "Иванов Иван Иванович 23.10.1991 f +7999999999";
         System.out.println(data);
+
+
         // разделили строку на массив строк, где разднлителем является пробел
         String [] splitData = data.split(" ");
 
 
 
-        /* 
-        if (dateOk == -1 | iOk == -1){
-            
-        }
-        */
-
-
-            // проверка на наличе только букв
-            String s = "cwvrgwcАМмуиуёЁ";
-            if (Pattern.matches("[ЁёА-яa-zA-Z]+",s)) { 
-            // Do something
-            System.out.println("Yes, string contains letters only");
-            }else{
-            System.out.println("Nope, Other characters detected");    
-            }
 
 
         for (String splitDataOne : splitData){
             System.out.println(splitDataOne);
 
-            // определили гендер
-            if (splitDataOne.equalsIgnoreCase("m") | splitDataOne.equalsIgnoreCase("f")){
+            // проверка на наличе только букв
+            if (Pattern.matches("[ЁёА-яa-zA-Z]+",splitDataOne)) { 
+                System.out.println("Только буквы");
+
+                // определили гендер
+                if (splitDataOne.equalsIgnoreCase("m") | splitDataOne.equalsIgnoreCase("f")){
                 gender = splitDataOne;
-            }
+                }
 
-
-
-
-
-
-
-            // проверка на число
-            char[] chars = splitDataOne.toCharArray();
-            for (char charDataOne : chars) {
-                if (Character.isDigit(charDataOne)){
-                    System.out.println("есть число");
-                    break;
+                else {
+                    FIO.add(splitDataOne);
                 }
             }
-
-
-
-            if (dateOk == -1 | iOk == -1){
-                try{
+            else{
+                System.out.println("Не только буквы");
+ 
                 // проверка на номер телефона
-                long i = Long.parseLong(splitDataOne);
-                System.out.println("long i = " + i);
-                phoneNumber = i;
-                }
-                
-                catch (NumberFormatException nfe)
-                {
-                //System.out.println("NumberFormatException: " + nfe.getMessage());
+                if (iOk == -1){
+                    try{
+                    long i = Long.parseLong(splitDataOne);
+                    System.out.println("long i = " + i);
+                    phoneNumber = i;
+                    }
+                    
+                    catch (NumberFormatException nfe)
+                    {
+                    //System.out.println("NumberFormatException: " + nfe.getMessage());
+                    }
                 }
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    java.util.Date date = dateFormat.parse(splitDataOne);
-                    System.out.println("date = " + date);
-                    dateStr = splitDataOne;
-                    dateOk = 1;
-                } catch (Exception e) {
+                // проверка на дату
+                if (dateOk == -1){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                    try {
+                        java.util.Date date = dateFormat.parse(splitDataOne);
+                        System.out.println("date = " + date);
+                        dateStr = splitDataOne;
+                        dateOk = 1;
+                    }
+                    catch (Exception e) {
 
+                    }
                 }
             }
-            
-
-            
         }
+
+        // Вывод данных
         System.out.println();
+        System.out.println("FIO = " + FIO);
         System.out.println("phoneNumber = " + phoneNumber);
         System.out.println("date = " + dateStr);
         System.out.println("Gender = " + gender);
-
     }
 }
-//////
