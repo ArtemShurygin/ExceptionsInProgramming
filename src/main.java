@@ -34,8 +34,8 @@ public class main {
         "номертелефона - целое беззнаковое число без форматирования\n" + 
         "пол - символ латиницей f или m\n" + "\n" + 
         "Введите данные: \n");
-        // String data = "Ivanov Ivan Ivanovich 23.10.1991 f +79112293344";
-        // String data = "Иванов Иван Иванович 23.10.1991 f +79112293344";  
+        // String data = "Ivanov Ivan Ivanovich 23.10.1991 m +79112293344";
+        // String data = "Иванов Иван Иванович 23.10.1991 m +79112293344";  
 
         try {
             data = sc.nextLine();
